@@ -43,7 +43,7 @@
                                     <constraint firstAttribute="height" constant="250" id="FYL-Xz-BmQ"/>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NnM-LL-AJY">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NnM-LL-AJY">
                                 <rect key="frame" x="16" y="368" width="343" height="30"/>
                                 <accessibility key="accessibilityConfiguration" label="Password Field"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -61,11 +61,11 @@
                                     <action selector="loginButton:" destination="JtV-vg-ePM" eventType="touchUpInside" id="Wbf-av-h6M"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mND-Lx-H52">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mND-Lx-H52">
                                 <rect key="frame" x="16" y="330" width="343" height="30"/>
                                 <accessibility key="accessibilityConfiguration" hint="Enter your email address" label="Email Address Field"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" textContentType="email"/>
                             </textField>
                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gUZ-EH-la3" customClass="DesignableButton" customModule="CWall" customModuleProvider="target">
                                 <rect key="frame" x="16" y="444" width="343" height="30"/>
@@ -88,7 +88,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fra-3K-TPr" userLabel="Login Message">
-                                <rect key="frame" x="16" y="482" width="343" height="30"/>
+                                <rect key="frame" x="16" y="587" width="343" height="30"/>
                                 <accessibility key="accessibilityConfiguration" label="Login Feedback Message"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="mTg-M6-pZD"/>
@@ -97,27 +97,42 @@
                                 <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="24P-YG-XaQ">
+                                <rect key="frame" x="16" y="482" width="343" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="jWr-vC-msq"/>
+                                </constraints>
+                                <state key="normal" title="Forgot Password">
+                                    <color key="titleColor" red="0.0" green="0.38823529410000002" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="forgotPasswordButton:" destination="JtV-vg-ePM" eventType="touchUpInside" id="90z-7a-gIr"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="T8J-9V-cgA" firstAttribute="trailing" secondItem="NnM-LL-AJY" secondAttribute="trailing" constant="16" id="0lf-vh-8aN"/>
                             <constraint firstItem="gUZ-EH-la3" firstAttribute="leading" secondItem="T8J-9V-cgA" secondAttribute="leading" constant="16" id="19j-i6-lvW"/>
+                            <constraint firstItem="24P-YG-XaQ" firstAttribute="top" secondItem="gUZ-EH-la3" secondAttribute="bottom" constant="8" id="2Yj-t0-VV0"/>
                             <constraint firstItem="T8J-9V-cgA" firstAttribute="trailing" secondItem="mND-Lx-H52" secondAttribute="trailing" constant="16" id="3fV-ky-ye4"/>
                             <constraint firstItem="Dz3-NK-Pea" firstAttribute="top" secondItem="NnM-LL-AJY" secondAttribute="bottom" constant="8" id="3i0-2o-zgO"/>
                             <constraint firstItem="gUZ-EH-la3" firstAttribute="top" secondItem="Dz3-NK-Pea" secondAttribute="bottom" constant="8" id="4Ae-tv-mHg"/>
+                            <constraint firstItem="T8J-9V-cgA" firstAttribute="bottom" secondItem="Fra-3K-TPr" secondAttribute="bottom" constant="50" id="7Vx-SK-YHz"/>
                             <constraint firstItem="mND-Lx-H52" firstAttribute="top" secondItem="ULK-ki-0rr" secondAttribute="bottom" constant="8" id="FE7-Kl-zAd"/>
                             <constraint firstItem="Dz3-NK-Pea" firstAttribute="leading" secondItem="T8J-9V-cgA" secondAttribute="leading" constant="16" id="HWZ-tI-RjE"/>
                             <constraint firstItem="T8J-9V-cgA" firstAttribute="trailing" secondItem="gUZ-EH-la3" secondAttribute="trailing" constant="16" id="Myn-p9-hKF"/>
-                            <constraint firstItem="Fra-3K-TPr" firstAttribute="top" secondItem="gUZ-EH-la3" secondAttribute="bottom" constant="8" id="O3J-mp-v9V"/>
                             <constraint firstItem="ULK-ki-0rr" firstAttribute="top" secondItem="T8J-9V-cgA" secondAttribute="top" constant="8" id="O4T-yX-QCN"/>
                             <constraint firstItem="NnM-LL-AJY" firstAttribute="top" secondItem="mND-Lx-H52" secondAttribute="bottom" constant="8" id="Q9A-j7-bLb"/>
                             <constraint firstItem="T8J-9V-cgA" firstAttribute="trailing" secondItem="Dz3-NK-Pea" secondAttribute="trailing" constant="16" id="S4n-Ld-871"/>
+                            <constraint firstItem="T8J-9V-cgA" firstAttribute="trailing" secondItem="24P-YG-XaQ" secondAttribute="trailing" constant="16" id="SJq-U1-0ph"/>
                             <constraint firstItem="NnM-LL-AJY" firstAttribute="leading" secondItem="T8J-9V-cgA" secondAttribute="leading" constant="16" id="Z8A-0K-bxj"/>
                             <constraint firstItem="Fra-3K-TPr" firstAttribute="leading" secondItem="T8J-9V-cgA" secondAttribute="leading" constant="16" id="ZbK-Pn-Bbz"/>
                             <constraint firstItem="mND-Lx-H52" firstAttribute="leading" secondItem="T8J-9V-cgA" secondAttribute="leading" constant="16" id="aLy-ZH-MNX"/>
                             <constraint firstItem="ULK-ki-0rr" firstAttribute="leading" secondItem="T8J-9V-cgA" secondAttribute="leading" constant="16" id="bIw-AF-RSb"/>
                             <constraint firstItem="ULK-ki-0rr" firstAttribute="centerX" secondItem="riZ-BB-lKJ" secondAttribute="centerX" id="qjb-Jy-WFS"/>
                             <constraint firstItem="T8J-9V-cgA" firstAttribute="trailing" secondItem="Fra-3K-TPr" secondAttribute="trailing" constant="16" id="tkP-Jn-vZe"/>
+                            <constraint firstItem="24P-YG-XaQ" firstAttribute="leading" secondItem="T8J-9V-cgA" secondAttribute="leading" constant="16" id="vGS-Pd-RxX"/>
                             <constraint firstItem="T8J-9V-cgA" firstAttribute="trailing" secondItem="ULK-ki-0rr" secondAttribute="trailing" constant="16" id="xO1-Xh-rcP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="T8J-9V-cgA"/>
@@ -127,11 +142,87 @@
                         <outlet property="emailTextField" destination="mND-Lx-H52" id="DbC-GS-CFP"/>
                         <outlet property="loginTextLabel" destination="Fra-3K-TPr" id="qQs-eu-POs"/>
                         <outlet property="passwordTextField" destination="NnM-LL-AJY" id="CVf-Tt-0mA"/>
+                        <segue destination="Rks-gV-t8O" kind="show" identifier="forgotPasswordSegue" id="Sd5-C7-oPx"/>
+                        <segue destination="iGn-Le-PcC" kind="show" identifier="mainTabBarSegue" id="jDn-ER-eqJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEo-xN-Jrs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1114" y="-730"/>
+        </scene>
+        <!--Forgot Password Controller-->
+        <scene sceneID="yPB-Lf-nwr">
+            <objects>
+                <viewController storyboardIdentifier="ForgotPasswordController" id="Rks-gV-t8O" customClass="ForgotPasswordController" customModule="CWall" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="w1r-xX-sTb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wVp-Ju-g0i">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Reset Password" id="dX1-dk-Zgy">
+                                        <barButtonItem key="backBarButtonItem" title="Login" id="irA-J8-n5B"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZvH-9S-dsH">
+                                <rect key="frame" x="16" y="330" width="343" height="30"/>
+                                <accessibility key="accessibilityConfiguration" hint="Enter your email address" label="Email Address Field"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="iJE-Zl-Lvq"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" textContentType="email"/>
+                            </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CWall-Logo" translatesAutoresizingMaskIntoConstraints="NO" id="Dr4-KE-hHa">
+                                <rect key="frame" x="16" y="72" width="343" height="250"/>
+                                <accessibility key="accessibilityConfiguration" hint="Logo for the CWall Application" identifier="CWall-Logo" label="CWall Logo">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="DEv-XK-d76"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nu9-a5-8d4">
+                                <rect key="frame" x="16" y="368" width="343" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.38823529410000002" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="o5A-kQ-ZdV"/>
+                                </constraints>
+                                <state key="normal" title="Send Reset Email">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendResetEmail:" destination="Rks-gV-t8O" eventType="touchUpInside" id="aVD-zN-MF8"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="eCF-UG-cHB" firstAttribute="trailing" secondItem="Nu9-a5-8d4" secondAttribute="trailing" constant="16" id="0DR-Uo-Fca"/>
+                            <constraint firstItem="Dr4-KE-hHa" firstAttribute="leading" secondItem="eCF-UG-cHB" secondAttribute="leading" constant="16" id="7p3-As-gNv"/>
+                            <constraint firstItem="wVp-Ju-g0i" firstAttribute="top" secondItem="w1r-xX-sTb" secondAttribute="top" constant="20" id="ELn-xO-Zzu"/>
+                            <constraint firstItem="Nu9-a5-8d4" firstAttribute="top" secondItem="ZvH-9S-dsH" secondAttribute="bottom" constant="8" id="Iz8-wh-lRE"/>
+                            <constraint firstItem="ZvH-9S-dsH" firstAttribute="leading" secondItem="eCF-UG-cHB" secondAttribute="leading" constant="16" id="KyB-Ga-7eI"/>
+                            <constraint firstItem="Dr4-KE-hHa" firstAttribute="top" secondItem="wVp-Ju-g0i" secondAttribute="bottom" constant="8" id="Q1m-B6-EOp"/>
+                            <constraint firstItem="Nu9-a5-8d4" firstAttribute="leading" secondItem="eCF-UG-cHB" secondAttribute="leading" constant="16" id="Qh6-KG-1aF"/>
+                            <constraint firstItem="eCF-UG-cHB" firstAttribute="trailing" secondItem="Dr4-KE-hHa" secondAttribute="trailing" constant="16" id="Xae-Si-yPI"/>
+                            <constraint firstAttribute="trailing" secondItem="wVp-Ju-g0i" secondAttribute="trailing" id="iSe-Dp-osW"/>
+                            <constraint firstItem="eCF-UG-cHB" firstAttribute="trailing" secondItem="ZvH-9S-dsH" secondAttribute="trailing" constant="16" id="ndz-lw-szr"/>
+                            <constraint firstItem="wVp-Ju-g0i" firstAttribute="leading" secondItem="w1r-xX-sTb" secondAttribute="leading" id="wox-TT-3kS"/>
+                            <constraint firstItem="ZvH-9S-dsH" firstAttribute="top" secondItem="Dr4-KE-hHa" secondAttribute="bottom" constant="8" id="xAh-9P-JFt"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="eCF-UG-cHB"/>
+                    </view>
+                    <connections>
+                        <outlet property="emailTextField" destination="ZvH-9S-dsH" id="mjm-P3-RzW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VTO-Wo-Hgb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-338" y="-731"/>
         </scene>
         <!--FirstViewController-->
         <scene sceneID="MSk-tp-nUr">
@@ -168,7 +259,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OXX-S1-0Hv" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="-320"/>
+            <point key="canvasLocation" x="-1439" y="762"/>
         </scene>
         <!--SecondViewController-->
         <scene sceneID="tWI-ef-tRq">
@@ -205,7 +296,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9lz-df-ebY" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="360"/>
+            <point key="canvasLocation" x="-772" y="763"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="u9Q-af-gv6">
@@ -223,7 +314,22 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ya6-jo-Jat" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-86" y="66"/>
+            <point key="canvasLocation" x="-1114" y="0.0"/>
+        </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="JyW-qU-4JS">
+            <objects>
+                <viewController storyboardIdentifier="ProfileViewController" id="QdU-qn-3f8" customClass="ProfileViewController" customModule="CWall" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3l1-oA-MAH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="o25-FQ-PrT"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0jH-Hc-3Sb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-338" y="0.0"/>
         </scene>
     </scenes>
     <resources>

@@ -9,5 +9,6 @@ target 'CWall' do
   pod 'SwiftyJSON'
   pod 'Alamofire'
   pod 'SVProgressHUD'
+  pod 'QuickTableViewController', :git => 'git@github.com:bcylin/QuickTableViewController.git', :branch => 'develop'
 
 end

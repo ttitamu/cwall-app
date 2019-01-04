@@ -6,13 +6,11 @@
 
 
 import UIKit
-import SVProgressHUD
 import Alamofire
 import SwiftyJSON
+import SVProgressHUD
 
 class LoginViewController: UIViewController {
-    //The login script url make sure to write the ip instead of localhost
-    //you can get the ip using ifconfig command in terminal
     let URL_USER_LOGIN = "http://localhost:3000/api/users/login"
 
     //the defaultvalues to store user data
@@ -27,11 +25,12 @@ class LoginViewController: UIViewController {
     /***************************************************************/
     
     @IBAction func loginButton(_ sender: UIButton) {
+        SVProgressHUD.show(withStatus: "Logging In")
         //reset login error
         loginTextLabel.text = "";
         
         //getting the username and password
-        let parameters: Parameters=[
+        let parameters: Parameters = [
             "email":emailTextField.text!,
             "password":passwordTextField.text!
         ]
@@ -51,39 +50,55 @@ class LoginViewController: UIViewController {
                         let userId =  jsonData["userId"].stringValue
                         let userEmail = self.emailTextField.text
                         let userToken = jsonData["id"].stringValue
-                        let userTokenCreated = jsonData["created"].stringValue
-                        let userTokenTTL = jsonData["ttl"].stringValue
+                        let userTokenTTL = jsonData["ttl"].double!
+                        let userTokenCreatedRaw = jsonData["created"].stringValue
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+                        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+                        let date = dateFormatter.date(from: userTokenCreatedRaw)!
+                        let userValidDate = date.addingTimeInterval(userTokenTTL)
 
                         //saving user values to defaults
                         self.defaultValues.set(userId, forKey: "userId")
                         self.defaultValues.set(userEmail, forKey: "userEmail")
                         self.defaultValues.set(userToken, forKey: "userToken")
-                        self.defaultValues.set(userTokenCreated, forKey: "userTokenCreated")
-                        self.defaultValues.set(userTokenTTL, forKey: "userTokenTTL")
-
+                        self.defaultValues.set(userValidDate, forKey: "userValidDate")
+                        
+                        SVProgressHUD.dismiss()
+                        
                         //switching the screen
-                        if let mainTabBarController = self.storyboard?.instantiateViewController(withIdentifier: "MainTabBarController") {
-                            self.navigationController?.pushViewController(mainTabBarController, animated: true)
-
-                            self.dismiss(animated: false, completion: nil)
-                        }
+                        self.performSegue(withIdentifier: "mainTabBarSegue", sender: sender)
                     } else {
+                        SVProgressHUD.showInfo(withStatus: "Invalid username or password")
                         //error message in case of invalid credential
                         self.loginTextLabel.text = "Invalid username or password"
                     }
                 }
         }
     }
+    
+    //MARK: - Forgot Password Button Action
+    /***************************************************************/
 
+    @IBAction func forgotPasswordButton(_ sender: UIButton) {
+        performSegue(withIdentifier: "forgotPasswordSegue", sender: sender)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
-//            print("\(key) = \(value) \n")
-//        }
+        let userValidDate = UserDefaults.standard.object(forKey: "userValidDate") as? Date ?? Date()
+        let date = Date()
+
+        // if logged in
+        if date < userValidDate {
+            //switching the screen
+            self.performSegue(withIdentifier: "mainTabBarSegue", sender: nil)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
     }
 
     override func didReceiveMemoryWarning() {
