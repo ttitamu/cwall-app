@@ -12,6 +12,15 @@ import SwiftyJSON
 import SVProgressHUD
 
 class ForgotPasswordController: UIViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.title = "Reset Password"
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
     let URL_PASSWORD_RESET = "http://localhost:3000/request-password-reset"
     @IBOutlet weak var emailTextField: UITextField!
     
@@ -35,20 +44,17 @@ class ForgotPasswordController: UIViewController {
                 let jsonData : JSON = JSON(response.result.value!)
 
                 if jsonData["content"].exists() {
+                    SVProgressHUD.setForegroundColor(UIColor(red:0.29, green:0.71, blue:0.26, alpha:1.0))
                     SVProgressHUD.showSuccess(withStatus: jsonData["content"].stringValue)
                 } else {
+                    SVProgressHUD.setForegroundColor(UIColor(red:0.65, green:0.20, blue:0.20, alpha:1.0))
                     SVProgressHUD.showInfo(withStatus: "Email not found")
                 }
             }
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationItem.title = "Reset Password"
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    @IBAction func cancelButtonPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion:nil)
     }
 }

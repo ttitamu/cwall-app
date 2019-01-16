@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		2C1FF26521DEB7E5001950FE /* ForgotPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1FF26421DEB7E5001950FE /* ForgotPasswordController.swift */; };
+		2C66A19721E651D500BE527A /* RegisterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66A19621E651D500BE527A /* RegisterTableViewController.swift */; };
+		2C66A19921E6542B00BE527A /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66A19821E6542B00BE527A /* ProfileTableViewController.swift */; };
+		2CBF100421E6FA4C003AE120 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF100321E6FA4C003AE120 /* MainTabBarViewController.swift */; };
+		2CBF100621E79B32003AE120 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF100521E79B32003AE120 /* ProfileModel.swift */; };
 		2CF10D5021C9805E00930AFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF10D4F21C9805E00930AFD /* AppDelegate.swift */; };
 		2CF10D5721C9805E00930AFD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CF10D5521C9805E00930AFD /* Main.storyboard */; };
 		2CF10D5921C9806100930AFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CF10D5821C9806100930AFD /* Assets.xcassets */; };
@@ -21,6 +25,10 @@
 /* Begin PBXFileReference section */
 		0AC7E974200801BE2D6C2F65 /* Pods-CWall.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CWall.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CWall/Pods-CWall.debug.xcconfig"; sourceTree = "<group>"; };
 		2C1FF26421DEB7E5001950FE /* ForgotPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordController.swift; sourceTree = "<group>"; };
+		2C66A19621E651D500BE527A /* RegisterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterTableViewController.swift; sourceTree = "<group>"; };
+		2C66A19821E6542B00BE527A /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
+		2CBF100321E6FA4C003AE120 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
+		2CBF100521E79B32003AE120 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		2CF10D4C21C9805E00930AFD /* CWall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CWall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CF10D4F21C9805E00930AFD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CF10D5621C9805E00930AFD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -89,6 +97,7 @@
 		2CF10D6421C98FBE00930AFD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2CBF100521E79B32003AE120 /* ProfileModel.swift */,
 			);
 			name = Model;
 			path = CWall/Model;
@@ -111,6 +120,9 @@
 				2CF10D6921C997BE00930AFD /* LoginViewController.swift */,
 				2CF10D9421CF578000930AFD /* FirstViewController.swift */,
 				2C1FF26421DEB7E5001950FE /* ForgotPasswordController.swift */,
+				2C66A19621E651D500BE527A /* RegisterTableViewController.swift */,
+				2C66A19821E6542B00BE527A /* ProfileTableViewController.swift */,
+				2CBF100321E6FA4C003AE120 /* MainTabBarViewController.swift */,
 			);
 			name = Controller;
 			path = CWall/Controller;
@@ -248,10 +260,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CBF100421E6FA4C003AE120 /* MainTabBarViewController.swift in Sources */,
+				2C66A19921E6542B00BE527A /* ProfileTableViewController.swift in Sources */,
 				2C1FF26521DEB7E5001950FE /* ForgotPasswordController.swift in Sources */,
 				2CF10D9521CF578000930AFD /* FirstViewController.swift in Sources */,
 				2CF10D6A21C997BE00930AFD /* LoginViewController.swift in Sources */,
+				2C66A19721E651D500BE527A /* RegisterTableViewController.swift in Sources */,
 				2CF10D5021C9805E00930AFD /* AppDelegate.swift in Sources */,
+				2CBF100621E79B32003AE120 /* ProfileModel.swift in Sources */,
 				2CF10D6D21CAAEC800930AFD /* UIView-Button.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
