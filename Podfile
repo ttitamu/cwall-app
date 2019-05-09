@@ -9,5 +9,6 @@ target 'CWall' do
   pod 'SwiftyJSON'
   pod 'Alamofire'
   pod 'SVProgressHUD'
+  pod 'MapboxNavigation', '~> 0.32.0'
 
 end
