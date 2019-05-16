@@ -10,5 +10,6 @@ target 'CWall' do
   pod 'Alamofire'
   pod 'SVProgressHUD'
   pod 'MapboxNavigation', '~> 0.32.0'
+  pod 'Mapbox-iOS-SDK', '~> 4.10'
 
 end

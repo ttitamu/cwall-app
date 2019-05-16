@@ -62,5 +62,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>MGLMapboxAccessToken</key>
+	<string>pk.eyJ1Ijoiai1tb3VnaG9uIiwiYSI6ImNqdmgyOGcyYzBkd2M0YXA2MHJvYjM3YXoifQ.qj9jy1qI88nbjmUj9MjFwg</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>To get current location for navigation and trip planning</string>
 </dict>
 </plist>

@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		2C1FF26521DEB7E5001950FE /* ForgotPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1FF26421DEB7E5001950FE /* ForgotPasswordController.swift */; };
+		2C26A256228C998400DEB61A /* SearchResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C26A255228C998400DEB61A /* SearchResultTableViewController.swift */; };
+		2C26A25A228D064A00DEB61A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C26A259228D064A00DEB61A /* LocationManager.swift */; };
+		2C26A25C228D067800DEB61A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C26A25B228D067800DEB61A /* MapViewController.swift */; };
+		2C26A25E228D072400DEB61A /* SugestionsTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C26A25D228D072400DEB61A /* SugestionsTableTableViewController.swift */; };
+		2C26A260228D082A00DEB61A /* PlaceAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C26A25F228D082A00DEB61A /* PlaceAnnotation.swift */; };
+		2C26A262228D084400DEB61A /* MKPlacemark+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C26A261228D084400DEB61A /* MKPlacemark+Extension.swift */; };
+		2C26A264228D092C00DEB61A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C26A263228D092C00DEB61A /* Localizable.strings */; };
 		2C66A19721E651D500BE527A /* RegisterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66A19621E651D500BE527A /* RegisterTableViewController.swift */; };
 		2C66A19921E6542B00BE527A /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66A19821E6542B00BE527A /* ProfileTableViewController.swift */; };
 		2CBF100421E6FA4C003AE120 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF100321E6FA4C003AE120 /* MainTabBarViewController.swift */; };
@@ -18,13 +25,20 @@
 		2CF10D5C21C9806100930AFD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CF10D5A21C9806100930AFD /* LaunchScreen.storyboard */; };
 		2CF10D6A21C997BE00930AFD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF10D6921C997BE00930AFD /* LoginViewController.swift */; };
 		2CF10D6D21CAAEC800930AFD /* UIView-Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF10D6C21CAAEC800930AFD /* UIView-Button.swift */; };
-		2CF10D9521CF578000930AFD /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF10D9421CF578000930AFD /* FirstViewController.swift */; };
+		2CF10D9521CF578000930AFD /* PlanningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF10D9421CF578000930AFD /* PlanningViewController.swift */; };
 		6757588A08DEAF97597F8646 /* Pods_CWall.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 924FBF1417A663028EA8CD6B /* Pods_CWall.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0AC7E974200801BE2D6C2F65 /* Pods-CWall.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CWall.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CWall/Pods-CWall.debug.xcconfig"; sourceTree = "<group>"; };
 		2C1FF26421DEB7E5001950FE /* ForgotPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordController.swift; sourceTree = "<group>"; };
+		2C26A255228C998400DEB61A /* SearchResultTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewController.swift; sourceTree = "<group>"; };
+		2C26A259228D064A00DEB61A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		2C26A25B228D067800DEB61A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		2C26A25D228D072400DEB61A /* SugestionsTableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SugestionsTableTableViewController.swift; sourceTree = "<group>"; };
+		2C26A25F228D082A00DEB61A /* PlaceAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAnnotation.swift; sourceTree = "<group>"; };
+		2C26A261228D084400DEB61A /* MKPlacemark+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKPlacemark+Extension.swift"; sourceTree = "<group>"; };
+		2C26A263228D092C00DEB61A /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		2C66A19621E651D500BE527A /* RegisterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterTableViewController.swift; sourceTree = "<group>"; };
 		2C66A19821E6542B00BE527A /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		2CBF100321E6FA4C003AE120 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
@@ -37,7 +51,7 @@
 		2CF10D5D21C9806100930AFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = CWall/Info.plist; sourceTree = "<group>"; };
 		2CF10D6921C997BE00930AFD /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2CF10D6C21CAAEC800930AFD /* UIView-Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView-Button.swift"; sourceTree = "<group>"; };
-		2CF10D9421CF578000930AFD /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		2CF10D9421CF578000930AFD /* PlanningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningViewController.swift; sourceTree = "<group>"; };
 		924FBF1417A663028EA8CD6B /* Pods_CWall.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CWall.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2CCBB42CD4AD95715461F47 /* Pods-CWall.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CWall.release.xcconfig"; path = "Pods/Target Support Files/Pods-CWall/Pods-CWall.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,9 +85,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		2C26A258228D063400DEB61A /* MapSearch */ = {
+			isa = PBXGroup;
+			children = (
+				2C26A259228D064A00DEB61A /* LocationManager.swift */,
+				2C26A25B228D067800DEB61A /* MapViewController.swift */,
+				2C26A25F228D082A00DEB61A /* PlaceAnnotation.swift */,
+				2C26A261228D084400DEB61A /* MKPlacemark+Extension.swift */,
+			);
+			path = MapSearch;
+			sourceTree = "<group>";
+		};
 		2CF10D4321C9805E00930AFD = {
 			isa = PBXGroup;
 			children = (
+				2C26A263228D092C00DEB61A /* Localizable.strings */,
+				2C26A258228D063400DEB61A /* MapSearch */,
 				2CF10D6B21CAAEA200930AFD /* Extensions */,
 				2CF10D6421C98FBE00930AFD /* Model */,
 				2CF10D6521C98FC600930AFD /* View */,
@@ -118,11 +145,13 @@
 			children = (
 				2CF10D4F21C9805E00930AFD /* AppDelegate.swift */,
 				2CF10D6921C997BE00930AFD /* LoginViewController.swift */,
-				2CF10D9421CF578000930AFD /* FirstViewController.swift */,
+				2CF10D9421CF578000930AFD /* PlanningViewController.swift */,
 				2C1FF26421DEB7E5001950FE /* ForgotPasswordController.swift */,
 				2C66A19621E651D500BE527A /* RegisterTableViewController.swift */,
 				2C66A19821E6542B00BE527A /* ProfileTableViewController.swift */,
 				2CBF100321E6FA4C003AE120 /* MainTabBarViewController.swift */,
+				2C26A255228C998400DEB61A /* SearchResultTableViewController.swift */,
+				2C26A25D228D072400DEB61A /* SugestionsTableTableViewController.swift */,
 			);
 			name = Controller;
 			path = CWall/Controller;
@@ -170,6 +199,7 @@
 				TargetAttributes = {
 					2CF10D4B21C9805E00930AFD = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -197,6 +227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CF10D5C21C9806100930AFD /* LaunchScreen.storyboard in Resources */,
+				2C26A264228D092C00DEB61A /* Localizable.strings in Resources */,
 				2CF10D5921C9806100930AFD /* Assets.xcassets in Resources */,
 				2CF10D5721C9805E00930AFD /* Main.storyboard in Resources */,
 			);
@@ -286,10 +317,16 @@
 			files = (
 				2CBF100421E6FA4C003AE120 /* MainTabBarViewController.swift in Sources */,
 				2C66A19921E6542B00BE527A /* ProfileTableViewController.swift in Sources */,
+				2C26A256228C998400DEB61A /* SearchResultTableViewController.swift in Sources */,
+				2C26A25A228D064A00DEB61A /* LocationManager.swift in Sources */,
 				2C1FF26521DEB7E5001950FE /* ForgotPasswordController.swift in Sources */,
-				2CF10D9521CF578000930AFD /* FirstViewController.swift in Sources */,
+				2CF10D9521CF578000930AFD /* PlanningViewController.swift in Sources */,
+				2C26A262228D084400DEB61A /* MKPlacemark+Extension.swift in Sources */,
+				2C26A260228D082A00DEB61A /* PlaceAnnotation.swift in Sources */,
 				2CF10D6A21C997BE00930AFD /* LoginViewController.swift in Sources */,
+				2C26A25C228D067800DEB61A /* MapViewController.swift in Sources */,
 				2C66A19721E651D500BE527A /* RegisterTableViewController.swift in Sources */,
+				2C26A25E228D072400DEB61A /* SugestionsTableTableViewController.swift in Sources */,
 				2CF10D5021C9805E00930AFD /* AppDelegate.swift in Sources */,
 				2CBF100621E79B32003AE120 /* ProfileModel.swift in Sources */,
 				2CF10D6D21CAAEC800930AFD /* UIView-Button.swift in Sources */,
@@ -449,7 +486,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.tamu.tti.CWall;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -468,7 +505,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.tamu.tti.CWall;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

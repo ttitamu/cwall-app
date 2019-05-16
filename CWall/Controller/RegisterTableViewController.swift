@@ -66,7 +66,6 @@ class RegisterTableViewController: UITableViewController, UIPickerViewDelegate, 
         profile.betweenStopLimit = row
     }
 
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
