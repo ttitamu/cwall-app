@@ -21,16 +21,25 @@ class PlanningViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        fromTextField.clearButtonMode = UITextField.ViewMode.always
+        toTextField.clearButtonMode = UITextField.ViewMode.always
+        
         let fromRaw = defaultValues.value(forKey: "fromLocation")
         let toRaw = defaultValues.value(forKey: "toLocation")
 
         if fromRaw != nil {
-            from = NSKeyedUnarchiver.unarchiveObject(with: fromRaw as! Data) as? CLPlacemark
+            if from == nil {
+                from = NSKeyedUnarchiver.unarchiveObject(with: fromRaw as! Data) as? CLPlacemark
+            }
+            
             self.fromTextField.text = "\(from.name!), \(from.postalAddress?.street ?? ""), \(from.postalAddress?.city ?? ""), \(from.postalAddress?.state ?? "")"
         }
         
         if toRaw != nil {
-            to = NSKeyedUnarchiver.unarchiveObject(with: toRaw as! Data) as? CLPlacemark
+            if to == nil {
+                to = NSKeyedUnarchiver.unarchiveObject(with: toRaw as! Data) as? CLPlacemark
+            }
+            
             self.toTextField.text = "\(to.name!), \(to.postalAddress?.street ?? ""), \(to.postalAddress?.city ?? ""), \(to.postalAddress?.state ?? "")"
         }
     }
@@ -58,5 +67,44 @@ class PlanningViewController: UIViewController, UITextFieldDelegate {
         }
         
         self.performSegue(withIdentifier: "locationSearch", sender: self)
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        if textField.accessibilityIdentifier == "from" {
+            self.defaultValues.removeObject(forKey: "fromLocation")
+            from = nil
+        } else if textField.accessibilityIdentifier == "to" {
+            self.defaultValues.removeObject(forKey: "toLocation")
+            to = nil
+        }
+        
+        textField.text = ""
+        textField.resignFirstResponder()
+        
+        return false
+    }
+    
+    @IBAction func switchClick(_ sender: Any) {
+        let toOrig = to
+        let fromOrig = from
+        
+        from = toOrig
+        to = fromOrig
+        
+        if from != nil {
+            self.fromTextField.text = "\(from.name!), \(from.postalAddress?.street ?? ""), \(from.postalAddress?.city ?? ""), \(from.postalAddress?.state ?? "")"
+            self.defaultValues.set(NSKeyedArchiver.archivedData(withRootObject: from), forKey: "fromLocation")
+        } else {
+            self.fromTextField.text = ""
+            self.defaultValues.removeObject(forKey: "fromLocation")
+        }
+        
+        if to != nil {
+            self.toTextField.text = "\(to.name!), \(to.postalAddress?.street ?? ""), \(to.postalAddress?.city ?? ""), \(to.postalAddress?.state ?? "")"
+            self.defaultValues.set(NSKeyedArchiver.archivedData(withRootObject: to), forKey: "toLocation")
+        } else {
+            self.toTextField.text = ""
+            self.defaultValues.removeObject(forKey: "toLocation")
+        }
     }
 }

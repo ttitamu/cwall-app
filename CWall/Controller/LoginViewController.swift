@@ -103,6 +103,8 @@ class LoginViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.defaultValues.removeObject(forKey: "fromLocation")
+        self.defaultValues.removeObject(forKey: "toLocation")
         let userValidDate = UserDefaults.standard.object(forKey: "userValidDate") as? Date ?? Date()
         let date = Date()
 
