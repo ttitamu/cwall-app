@@ -70,7 +70,7 @@ class ProfileTableViewController: UITableViewController, UIPickerViewDelegate, U
     }
 
     @IBAction func saveProfile(_ sender: Any) {
-        let URL_USER_UPDATE = "http://localhost:3000/api/users/" + String(profile.userId)
+        let URL_USER_UPDATE = "http://13.65.39.139/api/users/" + String(profile.userId)
         
         SVProgressHUD.show(withStatus: "Saving Profile")
         var userParameters = [String: Any]()

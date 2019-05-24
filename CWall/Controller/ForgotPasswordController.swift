@@ -10,24 +10,15 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import SVProgressHUD
+import SwiftValidator
 
-class ForgotPasswordController: UIViewController {
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationItem.title = "Reset Password"
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    let URL_PASSWORD_RESET = "http://localhost:3000/request-password-reset"
+class ForgotPasswordController: UIViewController,  ValidationDelegate {
+    let validator = Validator()
+    let URL_PASSWORD_RESET = "http://13.65.39.139/request-password-reset"
     @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var emailError: UILabel!
     
-    //MARK: - Send Reset Action
-    /***************************************************************/
-    
-    @IBAction func sendResetEmail(_ sender: UIButton) {
+    func validationSuccessful() {
         SVProgressHUD.show(withStatus: "Sending Email")
         
         //getting the email
@@ -42,7 +33,7 @@ class ForgotPasswordController: UIViewController {
             //getting the json value from the server
             if response.result.isSuccess {
                 let jsonData : JSON = JSON(response.result.value!)
-
+                
                 if jsonData["content"].exists() {
                     SVProgressHUD.setForegroundColor(UIColor(red:0.29, green:0.71, blue:0.26, alpha:1.0))
                     SVProgressHUD.showSuccess(withStatus: jsonData["content"].stringValue)
@@ -52,6 +43,47 @@ class ForgotPasswordController: UIViewController {
                 }
             }
         }
+    }
+    
+    func validationFailed(_ errors: [(Validatable, ValidationError)]) {
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.title = "Reset Password"
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        validator.registerField(emailTextField, errorLabel: emailError, rules: [RequiredRule(), EmailRule()])
+        validator.styleTransformers(success: {
+            (validationRule) -> Void in
+            if let textField = validationRule.field as? UITextField {
+                textField.layer.borderWidth = 0
+            }
+            if let errorLabel = validationRule.errorLabel {
+                errorLabel.text = ""
+                errorLabel.isHidden = true
+            }
+        }, error:  {
+            (validationError) -> Void in
+            if let textField = validationError.field as? UITextField {
+                textField.layer.borderColor = UIColor.red.cgColor
+                textField.layer.borderWidth = 1.0
+            }
+            if let errorLabel = validationError.errorLabel {
+                errorLabel.text = validationError.errorMessage // works if you added labels
+                errorLabel.isHidden = false
+            }
+        })
+    }
+    
+    //MARK: - Send Reset Action
+    /***************************************************************/
+    
+    @IBAction func sendResetEmail(_ sender: UIButton) {
+         validator.validate(self)
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {

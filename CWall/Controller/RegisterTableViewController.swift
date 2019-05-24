@@ -10,10 +10,11 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import SVProgressHUD
+import SwiftValidator
 
-class RegisterTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-
-    let URL_USER_CREATE = "http://localhost:3000/api/users"
+class RegisterTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, ValidationDelegate {
+    let URL_USER_CREATE = "http://13.65.39.139/api/users"
+    let validator = Validator()
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
@@ -23,9 +24,11 @@ class RegisterTableViewController: UITableViewController, UIPickerViewDelegate, 
     @IBOutlet weak var betweenStopLimitPicker: UIPickerView!
     @IBOutlet weak var hapticFeedbackSwitch: UISwitch!
     @IBOutlet weak var hapticFeedbackHelpSwitch: UISwitch!
-    @IBOutlet weak var errorTableCell: UITableViewCell!
-    @IBOutlet weak var errorTextField: UILabel!
-
+    @IBOutlet weak var firstNameError: UILabel!
+    @IBOutlet weak var lastNameError: UILabel!
+    @IBOutlet weak var emailError: UILabel!
+    @IBOutlet weak var passwordError: UILabel!
+    
     let profile = ProfileModel(dict: [
         "userId": 0,
         "userEmail": "",
@@ -37,9 +40,52 @@ class RegisterTableViewController: UITableViewController, UIPickerViewDelegate, 
         "hapticFeedbackHelp": true,
         "betweenStopLimit": 2
     ]);
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    
+    func validationSuccessful() {
+        SVProgressHUD.show(withStatus: "Creating User")
+        let userParameters = [
+            "username": emailTextField.text!,
+            "email": emailTextField.text!,
+            "password": passwordTextField.text!,
+            "_profile": [
+                "firstName": firstNameTextField.text!,
+                "lastName": lastNameTextField.text!,
+                "wheelchair": wheelchairSwitch.isOn,
+                "visualImpairment": visualImpairmentSwitch.isOn,
+                "hapticFeedback": hapticFeedbackSwitch.isOn,
+                "hapticFeedbackHelp": hapticFeedbackHelpSwitch.isOn,
+                "betweenStopLimit": profile.betweenStopLimit
+            ]
+            ] as [String : Any]
+        
+        //making a post request
+        Alamofire.request(URL_USER_CREATE, method: .post, parameters: userParameters, encoding: JSONEncoding.default).responseJSON {
+            response in
+            
+            //getting the json value from the server
+            if response.result.isSuccess {
+                let jsonData : JSON = JSON(response.result.value!)
+                
+                //if there is no error
+                if (!jsonData["error"].exists()) {
+                    SVProgressHUD.dismiss()
+                    self.dismiss(animated: true, completion:{
+                        SVProgressHUD.setForegroundColor(UIColor(red:0.29, green:0.71, blue:0.26, alpha:1.0))
+                        SVProgressHUD.showSuccess(withStatus: "User created. Please login.")
+                    })
+                } else {
+                    SVProgressHUD.setForegroundColor(UIColor(red:0.65, green:0.20, blue:0.20, alpha:1.0))
+                    SVProgressHUD.showInfo(withStatus: "Errors are below the form")
+                    
+                    if jsonData["error"]["code"].exists() && jsonData["error"]["code"].stringValue == "INVALID_PASSWORD" {
+                    } else if jsonData["error"]["details"]["messages"]["email"].exists() {
+                    }
+                }
+            }
+        }
+    }
+    
+    func validationFailed(_ errors: [(Validatable, ValidationError)]) {
     }
 
     override func viewDidLoad() {
@@ -47,7 +93,32 @@ class RegisterTableViewController: UITableViewController, UIPickerViewDelegate, 
 
         self.betweenStopLimitPicker.delegate = self
         self.betweenStopLimitPicker.dataSource = self
+        
         self.betweenStopLimitPicker.selectRow(profile.betweenStopLimit, inComponent: 0, animated: false)
+        validator.registerField(firstNameTextField, errorLabel: firstNameError, rules: [RequiredRule()])
+        validator.registerField(lastNameTextField, errorLabel: lastNameError, rules: [RequiredRule()])
+        validator.registerField(emailTextField, errorLabel: emailError, rules: [RequiredRule(), EmailRule()])
+        validator.registerField(passwordTextField, errorLabel: passwordError, rules: [RequiredRule()])
+        validator.styleTransformers(success: {
+            (validationRule) -> Void in
+            if let textField = validationRule.field as? UITextField {
+                textField.layer.borderWidth = 0
+            }
+            if let errorLabel = validationRule.errorLabel {
+                errorLabel.text = ""
+                errorLabel.isHidden = true
+            }
+        }, error:  {
+            (validationError) -> Void in
+            if let textField = validationError.field as? UITextField {
+                textField.layer.borderColor = UIColor.red.cgColor
+                textField.layer.borderWidth = 1.0
+            }
+            if let errorLabel = validationError.errorLabel {
+                errorLabel.text = validationError.errorMessage // works if you added labels
+                errorLabel.isHidden = false
+            }
+        })
     }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -72,51 +143,7 @@ class RegisterTableViewController: UITableViewController, UIPickerViewDelegate, 
 
     // Register User after button click.
     @IBAction func registerUser(_ sender: Any) {
-        SVProgressHUD.show(withStatus: "Creating User")
-        let userParameters = [
-            "username": emailTextField.text!,
-            "email": emailTextField.text!,
-            "password": passwordTextField.text!,
-            "_profile": [
-                "firstName": firstNameTextField.text!,
-                "lastName": lastNameTextField.text!,
-                "wheelchair": wheelchairSwitch.isOn,
-                "visualImpairment": visualImpairmentSwitch.isOn,
-                "hapticFeedback": hapticFeedbackSwitch.isOn,
-                "hapticFeedbackHelp": hapticFeedbackHelpSwitch.isOn,
-                "betweenStopLimit": profile.betweenStopLimit
-            ]
-        ] as [String : Any]
-
-        //making a post request
-        Alamofire.request(URL_USER_CREATE, method: .post, parameters: userParameters, encoding: JSONEncoding.default).responseJSON {
-            response in
-
-            //getting the json value from the server
-            if response.result.isSuccess {
-                let jsonData : JSON = JSON(response.result.value!)
-
-                //if there is no error
-                if (!jsonData["error"].exists()) {
-                    self.errorTableCell.isHidden = true
-                    SVProgressHUD.dismiss()
-                    self.dismiss(animated: true, completion:{
-                        SVProgressHUD.setForegroundColor(UIColor(red:0.29, green:0.71, blue:0.26, alpha:1.0))
-                        SVProgressHUD.showSuccess(withStatus: "User created. Please login.")
-                    })
-                } else {
-                    SVProgressHUD.setForegroundColor(UIColor(red:0.65, green:0.20, blue:0.20, alpha:1.0))
-                    SVProgressHUD.showInfo(withStatus: "Errors are below the form")
-                    self.errorTableCell.isHidden = false
-
-                    if jsonData["error"]["code"].exists() && jsonData["error"]["code"].stringValue == "INVALID_PASSWORD" {
-                        self.errorTextField.text = jsonData["error"]["message"].stringValue
-                    } else if jsonData["error"]["details"]["messages"]["email"].exists() {
-                        self.errorTextField.text = "Email \(jsonData["error"]["details"]["messages"]["email"][0].stringValue)"
-                    }
-                }
-            }
-        }
+        validator.validate(self)
     }
 
     @IBAction func cancelButtonPressed(_ sender: Any) {

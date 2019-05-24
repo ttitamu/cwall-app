@@ -11,14 +11,6 @@ import UIKit
 class MainTabBarViewController: UITabBarController {
     let defaultValues = UserDefaults.standard
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     @IBAction func devLogin(_ sender: Any) {
         self.defaultValues.removeObject(forKey: "userId")
         self.defaultValues.removeObject(forKey: "userEmail")

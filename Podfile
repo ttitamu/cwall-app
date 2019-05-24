@@ -11,5 +11,6 @@ target 'CWall' do
   pod 'SVProgressHUD'
   pod 'MapboxNavigation', '~> 0.32.0'
   pod 'Mapbox-iOS-SDK', '~> 4.10'
+  pod 'SwiftValidator', :git => 'https://github.com/jpotts18/SwiftValidator.git', :tag => '4.2.0'
 
 end

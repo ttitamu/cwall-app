@@ -8,74 +8,149 @@
 
 import UIKit
 import CoreLocation
+import SwiftValidator
 
-class PlanningViewController: UIViewController, UITextFieldDelegate {
-    public var from: CLPlacemark!
-    public var to: CLPlacemark!
-    private var whichSearch = ""
-    let defaultValues = UserDefaults.standard
+struct Planner {
+    var from: CLPlacemark?
+    var to: CLPlacemark?
+    var dateRepresents: String
+    var date: Date?
+    var which: String
+}
+
+class PlanningViewController: UIViewController, UITextFieldDelegate, ValidationDelegate {
+    var planner: Planner?
+    var datePicker = UIDatePicker()
+    let validator = Validator()
     
     @IBOutlet weak var fromTextField: UITextField!
     @IBOutlet weak var toTextField: UITextField!
+    @IBOutlet weak var dateRepresents: UISegmentedControl!
+    @IBOutlet weak var date: UITextField!
+    @IBOutlet weak var fromError: UILabel!
+    @IBOutlet weak var toError: UILabel!
+    @IBOutlet weak var dateError: UILabel!
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    @IBAction func fromFieldEditing(_ sender: Any) {
+        planner?.which = "from"
+        self.performSegue(withIdentifier: "locationSearch", sender: self)
+    }
+    
+    @IBAction func toFieldEditing(_ sender: Any) {
+        planner?.which = "to"
+        self.performSegue(withIdentifier: "locationSearch", sender: self)
+    }
+    
+    @IBAction func dateFieldEditing(_ sender: UITextField) {
+        // DatePicker
+        self.datePicker = UIDatePicker(frame:CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 216))
+        self.datePicker.minimumDate = Date()
+        self.datePicker.backgroundColor = UIColor.white
+        self.datePicker.datePickerMode = UIDatePicker.Mode.dateAndTime
+        sender.inputView = self.datePicker
         
-        fromTextField.clearButtonMode = UITextField.ViewMode.always
-        toTextField.clearButtonMode = UITextField.ViewMode.always
+        // ToolBar
+        let toolBar = UIToolbar()
+        toolBar.barStyle = .default
+        toolBar.isTranslucent = true
+        toolBar.sizeToFit()
         
-        let fromRaw = defaultValues.value(forKey: "fromLocation")
-        let toRaw = defaultValues.value(forKey: "toLocation")
-
-        if fromRaw != nil {
-            if from == nil {
-                from = NSKeyedUnarchiver.unarchiveObject(with: fromRaw as! Data) as? CLPlacemark
-            }
-            
-            self.fromTextField.text = "\(from.name!), \(from.postalAddress?.street ?? ""), \(from.postalAddress?.city ?? ""), \(from.postalAddress?.state ?? "")"
-        }
-        
-        if toRaw != nil {
-            if to == nil {
-                to = NSKeyedUnarchiver.unarchiveObject(with: toRaw as! Data) as? CLPlacemark
-            }
-            
-            self.toTextField.text = "\(to.name!), \(to.postalAddress?.street ?? ""), \(to.postalAddress?.city ?? ""), \(to.postalAddress?.state ?? "")"
-        }
+        // Adding Button ToolBar
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(PlanningViewController.doneClick))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(PlanningViewController.cancelClick))
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        sender.inputAccessoryView = toolBar
+    }
+    
+    @objc func doneClick() {
+        let dateFormatter1 = DateFormatter()
+        dateFormatter1.dateStyle = .medium
+        dateFormatter1.timeStyle = .short
+        date.text = dateFormatter1.string(from: datePicker.date)
+        date.resignFirstResponder()
+        planner?.date = datePicker.date
+    }
+    
+    @objc func cancelClick() {
+        date.resignFirstResponder()
+    }
+    
+    func validationSuccessful() {
+        self.performSegue(withIdentifier: "findRoutes", sender: self)
+    }
+    
+    func validationFailed(_ errors: [(Validatable, ValidationError)]) {
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.fromTextField.delegate = self
         self.toTextField.delegate = self
+        
+        if planner == nil {
+            planner = Planner(from: nil, to: nil, dateRepresents: "departure", date: nil, which: "")
+        }
+
+        if planner?.from != nil {
+            self.fromTextField.text = "\(planner?.from?.name! ?? ""), \(planner?.from?.postalAddress?.street ?? ""), \(planner?.from?.postalAddress?.city ?? ""), \(planner?.from?.postalAddress?.state ?? "")"
+        }
+        
+        if planner?.to != nil {
+            self.toTextField.text = "\(planner?.to?.name! ?? ""), \(planner?.to?.postalAddress?.street ?? ""), \(planner?.to?.postalAddress?.city ?? ""), \(planner?.to?.postalAddress?.state ?? "")"
+        }
+        
+        validator.registerField(fromTextField, errorLabel: fromError, rules: [RequiredRule()])
+        validator.registerField(toTextField, errorLabel: toError, rules: [RequiredRule()])
+        validator.registerField(date, errorLabel: dateError, rules: [RequiredRule()])
+        validator.styleTransformers(success: {
+            (validationRule) -> Void in
+            if let textField = validationRule.field as? UITextField {
+                textField.layer.borderWidth = 0
+            }
+            if let errorLabel = validationRule.errorLabel {
+                errorLabel.text = ""
+                errorLabel.isHidden = true
+            }
+        }, error:  {
+            (validationError) -> Void in
+            if let textField = validationError.field as? UITextField {
+                textField.layer.borderColor = UIColor.red.cgColor
+                textField.layer.borderWidth = 1.0
+            }
+            if let errorLabel = validationError.errorLabel {
+                errorLabel.text = validationError.errorMessage // works if you added labels
+                errorLabel.isHidden = false
+            }
+        })
+    }
+    
+    @IBAction func dateRepresentsToggle(_ sender: Any) {
+        print(dateRepresents.selectedSegmentIndex);
+        if dateRepresents.selectedSegmentIndex == 0 {
+            planner?.dateRepresents = "departure"
+        } else if dateRepresents.selectedSegmentIndex == 1 {
+            planner?.dateRepresents = "arrival"
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "locationSearch" {
             let navViewControllers = segue.destination as! UINavigationController
             let destinationViewController = navViewControllers.viewControllers[0] as! SearchResultTableViewController
-            
-            destinationViewController.which = whichSearch
+            destinationViewController.planner = planner
+        } else if segue.identifier == "findRoutes" {
+            let destinationViewController = segue.destination as! RoutesTableViewController
+            destinationViewController.planner = planner
         }
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField.accessibilityIdentifier == "from" {
-            whichSearch = "from"
-        } else if textField.accessibilityIdentifier == "to" {
-            whichSearch = "to"
-        }
-        
-        self.performSegue(withIdentifier: "locationSearch", sender: self)
     }
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         if textField.accessibilityIdentifier == "from" {
-            self.defaultValues.removeObject(forKey: "fromLocation")
-            from = nil
+            planner?.from = nil
         } else if textField.accessibilityIdentifier == "to" {
-            self.defaultValues.removeObject(forKey: "toLocation")
-            to = nil
+            planner?.to = nil
         }
         
         textField.text = ""
@@ -85,26 +160,26 @@ class PlanningViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func switchClick(_ sender: Any) {
-        let toOrig = to
-        let fromOrig = from
+        let toOrig = planner?.to
+        let fromOrig = planner?.from
         
-        from = toOrig
-        to = fromOrig
+        planner?.from = toOrig
+        planner?.to = fromOrig
         
-        if from != nil {
-            self.fromTextField.text = "\(from.name!), \(from.postalAddress?.street ?? ""), \(from.postalAddress?.city ?? ""), \(from.postalAddress?.state ?? "")"
-            self.defaultValues.set(NSKeyedArchiver.archivedData(withRootObject: from), forKey: "fromLocation")
+        if planner?.from != nil {
+            self.fromTextField.text = "\(planner?.from?.name! ?? ""), \(planner?.from?.postalAddress?.street ?? ""), \(planner?.from?.postalAddress?.city ?? ""), \(planner?.from?.postalAddress?.state ?? "")"
         } else {
             self.fromTextField.text = ""
-            self.defaultValues.removeObject(forKey: "fromLocation")
         }
         
-        if to != nil {
-            self.toTextField.text = "\(to.name!), \(to.postalAddress?.street ?? ""), \(to.postalAddress?.city ?? ""), \(to.postalAddress?.state ?? "")"
-            self.defaultValues.set(NSKeyedArchiver.archivedData(withRootObject: to), forKey: "toLocation")
+        if planner?.to != nil {
+            self.toTextField.text = "\(planner?.to?.name! ?? ""), \(planner?.to?.postalAddress?.street ?? ""), \(planner?.to?.postalAddress?.city ?? ""), \(planner?.to?.postalAddress?.state ?? "")"
         } else {
             self.toTextField.text = ""
-            self.defaultValues.removeObject(forKey: "toLocation")
         }
+    }
+    
+    @IBAction func findRoutesButton(_ sender: Any) {
+        validator.validate(self)
     }
 }

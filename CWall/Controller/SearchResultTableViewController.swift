@@ -8,11 +8,8 @@ import CoreLocation
 import MapKit
 
 class SearchResultTableViewController: UITableViewController {
-    public var from: CLPlacemark!
-    public var to: CLPlacemark!
-    public var which = "";
-    let defaultValues = UserDefaults.standard
-    
+    var planner: Planner?
+
     private enum SegueID: String {
         case showDetail
         case showAll
@@ -80,17 +77,9 @@ class SearchResultTableViewController: UITableViewController {
         })
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        from = defaultValues.object(forKey: "fromLocation") as? CLPlacemark
-        to = defaultValues.object(forKey: "toLocation") as? CLPlacemark
-        
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Place the search bar in the navigation bar.
         navigationItem.searchController = searchController
         
@@ -100,10 +89,10 @@ class SearchResultTableViewController: UITableViewController {
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.delegate = self
         
-        if which == "from" && from != nil {
-            searchController.searchBar.text = from.name ?? ""
-        } else if which == "to" && to != nil {
-            searchController.searchBar.text = to.name ?? ""
+        if planner?.which == "from" && planner?.from != nil {
+            searchController.searchBar.text = planner?.from?.name ?? ""
+        } else if planner?.which == "to" && planner?.to != nil {
+            searchController.searchBar.text = planner?.to?.name ?? ""
         }
         
         /*
@@ -134,14 +123,16 @@ class SearchResultTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "planning") {
             guard let selectedItemPath = tableView.indexPathForSelectedRow, let mapItem = places?[selectedItemPath.row] else { return }
+            let navViewControllers = segue.destination as! UITabBarController
+            let destinationViewController = navViewControllers.viewControllers?[0] as! PlanningViewController
             
-            if which == "from" {
-                self.defaultValues.set(NSKeyedArchiver.archivedData(withRootObject: mapItem.placemark), forKey: "fromLocation")
-            } else if which == "to" {
-                self.defaultValues.set(NSKeyedArchiver.archivedData(withRootObject: mapItem.placemark), forKey: "toLocation")
+            if planner?.which == "from" {
+                planner?.from = mapItem.placemark
+            } else if planner?.which == "to" {
+                planner?.to = mapItem.placemark
             }
-            
-            self.defaultValues.synchronize()
+
+            destinationViewController.planner = planner ?? Planner(from: nil, to: nil, dateRepresents: "departure", date: nil, which: "")
         }
     }
     

@@ -15,6 +15,7 @@
 		2C26A260228D082A00DEB61A /* PlaceAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C26A25F228D082A00DEB61A /* PlaceAnnotation.swift */; };
 		2C26A262228D084400DEB61A /* MKPlacemark+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C26A261228D084400DEB61A /* MKPlacemark+Extension.swift */; };
 		2C26A264228D092C00DEB61A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C26A263228D092C00DEB61A /* Localizable.strings */; };
+		2C29E225229743E4001D683E /* RoutesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C29E224229743E4001D683E /* RoutesTableViewController.swift */; };
 		2C66A19721E651D500BE527A /* RegisterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66A19621E651D500BE527A /* RegisterTableViewController.swift */; };
 		2C66A19921E6542B00BE527A /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C66A19821E6542B00BE527A /* ProfileTableViewController.swift */; };
 		2CBF100421E6FA4C003AE120 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBF100321E6FA4C003AE120 /* MainTabBarViewController.swift */; };
@@ -39,6 +40,7 @@
 		2C26A25F228D082A00DEB61A /* PlaceAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAnnotation.swift; sourceTree = "<group>"; };
 		2C26A261228D084400DEB61A /* MKPlacemark+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKPlacemark+Extension.swift"; sourceTree = "<group>"; };
 		2C26A263228D092C00DEB61A /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		2C29E224229743E4001D683E /* RoutesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesTableViewController.swift; sourceTree = "<group>"; };
 		2C66A19621E651D500BE527A /* RegisterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterTableViewController.swift; sourceTree = "<group>"; };
 		2C66A19821E6542B00BE527A /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		2CBF100321E6FA4C003AE120 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
@@ -145,13 +147,14 @@
 			children = (
 				2CF10D4F21C9805E00930AFD /* AppDelegate.swift */,
 				2CF10D6921C997BE00930AFD /* LoginViewController.swift */,
-				2CF10D9421CF578000930AFD /* PlanningViewController.swift */,
 				2C1FF26421DEB7E5001950FE /* ForgotPasswordController.swift */,
 				2C66A19621E651D500BE527A /* RegisterTableViewController.swift */,
 				2C66A19821E6542B00BE527A /* ProfileTableViewController.swift */,
 				2CBF100321E6FA4C003AE120 /* MainTabBarViewController.swift */,
+				2CF10D9421CF578000930AFD /* PlanningViewController.swift */,
 				2C26A255228C998400DEB61A /* SearchResultTableViewController.swift */,
 				2C26A25D228D072400DEB61A /* SugestionsTableTableViewController.swift */,
+				2C29E224229743E4001D683E /* RoutesTableViewController.swift */,
 			);
 			name = Controller;
 			path = CWall/Controller;
@@ -280,6 +283,7 @@
 				"${BUILT_PRODUCTS_DIR}/Polyline/Polyline.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Solar/Solar.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftValidator/SwiftValidator.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Turf/Turf.framework",
 			);
@@ -300,6 +304,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Polyline.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Solar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftValidator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Turf.framework",
 			);
@@ -318,6 +323,7 @@
 				2CBF100421E6FA4C003AE120 /* MainTabBarViewController.swift in Sources */,
 				2C66A19921E6542B00BE527A /* ProfileTableViewController.swift in Sources */,
 				2C26A256228C998400DEB61A /* SearchResultTableViewController.swift in Sources */,
+				2C29E225229743E4001D683E /* RoutesTableViewController.swift in Sources */,
 				2C26A25A228D064A00DEB61A /* LocationManager.swift in Sources */,
 				2C1FF26521DEB7E5001950FE /* ForgotPasswordController.swift in Sources */,
 				2CF10D9521CF578000930AFD /* PlanningViewController.swift in Sources */,
