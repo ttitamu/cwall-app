@@ -6,7 +6,7 @@
 //  Copyright © 2019 Texas A&M Transportation Institute. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class ProfileModel {
     var userId : Int = 0

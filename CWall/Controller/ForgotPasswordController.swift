@@ -12,11 +12,36 @@ import SwiftyJSON
 import SVProgressHUD
 import SwiftValidator
 
-class ForgotPasswordController: UIViewController,  ValidationDelegate {
+class ForgotPasswordController: UIViewController,  ValidationDelegate, UITextFieldDelegate {
     let validator = Validator()
     let URL_PASSWORD_RESET = "http://13.65.39.139/request-password-reset"
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var emailError: UILabel!
+    
+    func addDoneButtonOnKeyboard() {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        doneToolbar.barStyle       = UIBarStyle.default
+        let flexSpace              = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem  = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(ForgotPasswordController.doneButtonAction))
+        
+        var items = [UIBarButtonItem]()
+        items.append(flexSpace)
+        items.append(done)
+        
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        self.emailTextField.inputAccessoryView = doneToolbar
+    }
+    
+    @objc func doneButtonAction() {
+        self.emailTextField.resignFirstResponder()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {   //delegate method
+        textField.resignFirstResponder()
+        return true
+    }
     
     func validationSuccessful() {
         SVProgressHUD.show(withStatus: "Sending Email")
@@ -55,6 +80,9 @@ class ForgotPasswordController: UIViewController,  ValidationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.addDoneButtonOnKeyboard()
+        emailTextField.delegate = self
         
         validator.registerField(emailTextField, errorLabel: emailError, rules: [RequiredRule(), EmailRule()])
         validator.styleTransformers(success: {

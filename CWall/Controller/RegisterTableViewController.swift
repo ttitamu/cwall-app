@@ -12,7 +12,7 @@ import SwiftyJSON
 import SVProgressHUD
 import SwiftValidator
 
-class RegisterTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, ValidationDelegate {
+class RegisterTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, ValidationDelegate, UITextFieldDelegate {
     let URL_USER_CREATE = "http://13.65.39.139/api/users"
     let validator = Validator()
     @IBOutlet weak var firstNameTextField: UITextField!
@@ -28,6 +28,37 @@ class RegisterTableViewController: UITableViewController, UIPickerViewDelegate, 
     @IBOutlet weak var lastNameError: UILabel!
     @IBOutlet weak var emailError: UILabel!
     @IBOutlet weak var passwordError: UILabel!
+    
+    func addDoneButtonOnKeyboard() {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        doneToolbar.barStyle       = UIBarStyle.default
+        let flexSpace              = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem  = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(ForgotPasswordController.doneButtonAction))
+        
+        var items = [UIBarButtonItem]()
+        items.append(flexSpace)
+        items.append(done)
+        
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        self.firstNameTextField.inputAccessoryView = doneToolbar
+        self.lastNameTextField.inputAccessoryView = doneToolbar
+        self.emailTextField.inputAccessoryView = doneToolbar
+        self.passwordTextField.inputAccessoryView = doneToolbar
+    }
+    
+    @objc func doneButtonAction() {
+        self.firstNameTextField.resignFirstResponder()
+        self.lastNameTextField.resignFirstResponder()
+        self.emailTextField.resignFirstResponder()
+        self.passwordTextField.resignFirstResponder()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {   //delegate method
+        textField.resignFirstResponder()
+        return true
+    }
     
     let profile = ProfileModel(dict: [
         "userId": 0,
@@ -90,7 +121,13 @@ class RegisterTableViewController: UITableViewController, UIPickerViewDelegate, 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.addDoneButtonOnKeyboard()
+        firstNameTextField.delegate = self
+        lastNameTextField.delegate = self
+        passwordTextField.delegate = self
+        emailTextField.delegate = self
+        
         self.betweenStopLimitPicker.delegate = self
         self.betweenStopLimitPicker.dataSource = self
         

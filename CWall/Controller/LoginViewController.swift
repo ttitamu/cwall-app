@@ -11,7 +11,7 @@ import SwiftyJSON
 import SVProgressHUD
 import SwiftValidator
 
-class LoginViewController: UIViewController, ValidationDelegate {
+class LoginViewController: UIViewController, ValidationDelegate, UITextFieldDelegate {
     let validator = Validator()
     let URL_USER_LOGIN = "http://13.65.39.139/api/users/login?include=user"
 
@@ -23,6 +23,33 @@ class LoginViewController: UIViewController, ValidationDelegate {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var emailError: UILabel!
     @IBOutlet weak var passwordError: UILabel!
+    
+    func addDoneButtonOnKeyboard() {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        doneToolbar.barStyle       = UIBarStyle.default
+        let flexSpace              = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem  = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(LoginViewController.doneButtonAction))
+        
+        var items = [UIBarButtonItem]()
+        items.append(flexSpace)
+        items.append(done)
+        
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        self.emailTextField.inputAccessoryView = doneToolbar
+        self.passwordTextField.inputAccessoryView = doneToolbar
+    }
+    
+    @objc func doneButtonAction() {
+        self.emailTextField.resignFirstResponder()
+        self.passwordTextField.resignFirstResponder()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {   //delegate method
+        textField.resignFirstResponder()
+        return true
+    }
     
     //MARK: - Login Button Action
     /***************************************************************/
@@ -123,6 +150,11 @@ class LoginViewController: UIViewController, ValidationDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.addDoneButtonOnKeyboard()
+        passwordTextField.delegate = self
+        emailTextField.delegate = self
+        
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
         
         validator.registerField(emailTextField, errorLabel: emailError, rules: [RequiredRule(), EmailRule()])

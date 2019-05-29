@@ -30,7 +30,7 @@ class ProfileTableViewController: UITableViewController, UIPickerViewDelegate, U
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         self.firstNameTextField.text = profile.firstName
         self.lastNameTextField.text = profile.lastName
         self.emailTextField.text = profile.userEmail
@@ -38,7 +38,7 @@ class ProfileTableViewController: UITableViewController, UIPickerViewDelegate, U
         self.visualImpairmentSwitch.setOn(profile.visualImpairment, animated: false)
         self.betweenStopLimitPicker.selectRow(profile.betweenStopLimit, inComponent: 0, animated: false)
         self.hapticFeedbackSwitch.setOn(profile.hapticFeedback, animated: false)
-        self.hapticFeedbackHelpSwitch.setOn(profile.hapticFeedbackHelp, animated: false)        
+        self.hapticFeedbackHelpSwitch.setOn(profile.hapticFeedbackHelp, animated: false)
     }
 
     override func viewDidLoad() {
@@ -117,4 +117,15 @@ class ProfileTableViewController: UITableViewController, UIPickerViewDelegate, U
         self.dismiss(animated: true, completion:nil)
     }
 
+    @IBAction func logout(_ sender: Any) {
+        let defaultValues = UserDefaults.standard
+        
+        defaultValues.removeObject(forKey: "userId")
+        defaultValues.removeObject(forKey: "userEmail")
+        defaultValues.removeObject(forKey: "userToken")
+        defaultValues.removeObject(forKey: "userValidDate")
+        defaultValues.synchronize()
+        //print(Array(UserDefaults.standard.dictionaryRepresentation()))
+        self.performSegue(withIdentifier: "logOut", sender: nil)
+    }
 }

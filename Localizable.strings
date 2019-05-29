@@ -15,3 +15,16 @@
 "BUTTON_SETTINGS" = "Settings";
 
 "TITLE_ALL_PLACES" = "All Places";
+
+"best" = "Best";
+"rapid" = "Rapid";
+"comfort" = "Comfort";
+"car" = "Car";
+"less_fallback_walk" = "Less Walking";
+"less_fallback_bike" = "Less Biking";
+"less_fallback_bss" = "Less Bike Sharing";
+"fastest" = "Fastest";
+"bike_in_pt" = "Bike and Bus";
+"non_pt_walk" = "Walking";
+"non_pt_bike" = "Biking";
+"non_pt_bss" = "Bike Share";

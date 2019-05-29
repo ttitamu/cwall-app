@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import MapboxGeocoder
 import CoreLocation
 import SwiftValidator
 
 struct Planner {
-    var from: CLPlacemark?
-    var to: CLPlacemark?
+    var from: Placemark?
+    var to: Placemark?
     var dateRepresents: String
     var date: Date?
     var which: String
@@ -22,6 +23,7 @@ class PlanningViewController: UIViewController, UITextFieldDelegate, ValidationD
     var planner: Planner?
     var datePicker = UIDatePicker()
     let validator = Validator()
+    let locationManager = CLLocationManager()
     
     @IBOutlet weak var fromTextField: UITextField!
     @IBOutlet weak var toTextField: UITextField!
@@ -30,15 +32,19 @@ class PlanningViewController: UIViewController, UITextFieldDelegate, ValidationD
     @IBOutlet weak var fromError: UILabel!
     @IBOutlet weak var toError: UILabel!
     @IBOutlet weak var dateError: UILabel!
-    
-    @IBAction func fromFieldEditing(_ sender: Any) {
+
+    @IBAction func fromTouch(_ sender: UITextField) {
         planner?.which = "from"
         self.performSegue(withIdentifier: "locationSearch", sender: self)
     }
     
-    @IBAction func toFieldEditing(_ sender: Any) {
+    @IBAction func toTouch(_ sender: UITextField) {
         planner?.which = "to"
         self.performSegue(withIdentifier: "locationSearch", sender: self)
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return false
     }
     
     @IBAction func dateFieldEditing(_ sender: UITextField) {
@@ -84,8 +90,27 @@ class PlanningViewController: UIViewController, UITextFieldDelegate, ValidationD
     func validationFailed(_ errors: [(Validatable, ValidationError)]) {
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.title = "Trip Planner"
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        locationManager.requestLocation()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+        
         self.fromTextField.delegate = self
         self.toTextField.delegate = self
         
@@ -94,12 +119,23 @@ class PlanningViewController: UIViewController, UITextFieldDelegate, ValidationD
         }
 
         if planner?.from != nil {
-            self.fromTextField.text = "\(planner?.from?.name! ?? ""), \(planner?.from?.postalAddress?.street ?? ""), \(planner?.from?.postalAddress?.city ?? ""), \(planner?.from?.postalAddress?.state ?? "")"
+            self.fromTextField.text = planner?.from?.qualifiedName
         }
         
         if planner?.to != nil {
-            self.toTextField.text = "\(planner?.to?.name! ?? ""), \(planner?.to?.postalAddress?.street ?? ""), \(planner?.to?.postalAddress?.city ?? ""), \(planner?.to?.postalAddress?.state ?? "")"
+            self.toTextField.text = planner?.to?.qualifiedName
         }
+        
+        let dateFormatter1 = DateFormatter()
+        dateFormatter1.dateStyle = .medium
+        dateFormatter1.timeStyle = .short
+        
+        if planner?.date == nil {
+            planner?.date = Date()
+        }
+        
+        date.text = dateFormatter1.string(from: planner!.date!)
+        
         
         validator.registerField(fromTextField, errorLabel: fromError, rules: [RequiredRule()])
         validator.registerField(toTextField, errorLabel: toError, rules: [RequiredRule()])
@@ -127,7 +163,6 @@ class PlanningViewController: UIViewController, UITextFieldDelegate, ValidationD
     }
     
     @IBAction func dateRepresentsToggle(_ sender: Any) {
-        print(dateRepresents.selectedSegmentIndex);
         if dateRepresents.selectedSegmentIndex == 0 {
             planner?.dateRepresents = "departure"
         } else if dateRepresents.selectedSegmentIndex == 1 {
@@ -138,8 +173,9 @@ class PlanningViewController: UIViewController, UITextFieldDelegate, ValidationD
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "locationSearch" {
             let navViewControllers = segue.destination as! UINavigationController
-            let destinationViewController = navViewControllers.viewControllers[0] as! SearchResultTableViewController
+            let destinationViewController = navViewControllers.viewControllers[0] as! LocationSearchTableViewController
             destinationViewController.planner = planner
+            destinationViewController.locationManager = locationManager
         } else if segue.identifier == "findRoutes" {
             let destinationViewController = segue.destination as! RoutesTableViewController
             destinationViewController.planner = planner
@@ -167,13 +203,13 @@ class PlanningViewController: UIViewController, UITextFieldDelegate, ValidationD
         planner?.to = fromOrig
         
         if planner?.from != nil {
-            self.fromTextField.text = "\(planner?.from?.name! ?? ""), \(planner?.from?.postalAddress?.street ?? ""), \(planner?.from?.postalAddress?.city ?? ""), \(planner?.from?.postalAddress?.state ?? "")"
+            self.fromTextField.text = planner?.from?.qualifiedName
         } else {
             self.fromTextField.text = ""
         }
         
         if planner?.to != nil {
-            self.toTextField.text = "\(planner?.to?.name! ?? ""), \(planner?.to?.postalAddress?.street ?? ""), \(planner?.to?.postalAddress?.city ?? ""), \(planner?.to?.postalAddress?.state ?? "")"
+            self.toTextField.text = planner?.to?.qualifiedName
         } else {
             self.toTextField.text = ""
         }
@@ -182,4 +218,18 @@ class PlanningViewController: UIViewController, UITextFieldDelegate, ValidationD
     @IBAction func findRoutesButton(_ sender: Any) {
         validator.validate(self)
     }
+}
+
+extension PlanningViewController : CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("error:: \(error.localizedDescription)")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            locationManager.requestLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {}
 }
