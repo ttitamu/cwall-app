@@ -32,27 +32,40 @@ class LocationSearchTableViewController: UIViewController, UITableViewDelegate, 
             self.searchBar!.searchBarStyle = UISearchBar.Style.prominent
             self.searchBar!.delegate = self
             self.searchBar!.placeholder = "Search for place";
-            
-            if planner?.which == "from" && planner?.from != nil{
-                if (planner?.from?.genres == nil) {
-                    self.searchBar!.text = planner?.from?.qualifiedName
-                } else {
-                    self.searchBar!.text = planner?.from?.name
-                }
-                self.searchBar!.setShowsCancelButton(true, animated: true)
-                self.searchMe()
-            } else if planner?.which == "to" && planner?.to != nil {
-                if (planner?.to?.genres == nil) {
-                    self.searchBar!.text = planner?.to?.qualifiedName
-                } else {
-                    self.searchBar!.text = planner?.to?.name
-                }
-                
-                self.searchBar!.setShowsCancelButton(true, animated: true)
-                self.searchMe()
-            }
         }
+        
         self.navigationItem.titleView = searchBar
+        
+        let options = ReverseGeocodeOptions(location: locationManager.location!)
+        
+        geocoder.geocode(options) { (placemarks, attribution, error) in
+            guard let placemark = placemarks?.first else {
+                return
+            }
+            
+            placemark.name = "Current Location: " + placemark.name
+            self.searchedPlaces.add(placemark)
+            self.tableView.reloadData()
+        }
+        
+        if planner?.which == "from" && planner?.from != nil{
+            if (planner?.from?.genres == nil) {
+                self.searchBar!.text = planner?.from?.qualifiedName
+            } else {
+                self.searchBar!.text = planner?.from?.name
+            }
+            self.searchBar!.setShowsCancelButton(true, animated: true)
+            self.searchMe()
+        } else if planner?.which == "to" && planner?.to != nil {
+            if (planner?.to?.genres == nil) {
+                self.searchBar!.text = planner?.to?.qualifiedName
+            } else {
+                self.searchBar!.text = planner?.to?.name
+            }
+            
+            self.searchBar!.setShowsCancelButton(true, animated: true)
+            self.searchMe()
+        }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -60,6 +73,8 @@ class LocationSearchTableViewController: UIViewController, UITableViewDelegate, 
         self.perform(#selector(self.searchMe), with: nil, afterDelay: 0.5)
         if(searchBar.text!.isEmpty){
             searchActive = false;
+            if (self.searchedPlaces.count > 1) { self.searchedPlaces.removeObjects(in: NSMakeRange(1, self.searchedPlaces.count - 1)) }
+            self.tableView.reloadData()
         } else {
             searchActive = true;
         }
@@ -67,7 +82,7 @@ class LocationSearchTableViewController: UIViewController, UITableViewDelegate, 
     
     @objc func searchMe() {
         if(searchBar?.text!.isEmpty)!{ } else {
-            self.searchedPlaces.removeAllObjects()
+            if (self.searchedPlaces.count > 1) { self.searchedPlaces.removeObjects(in: NSMakeRange(1, self.searchedPlaces.count - 1)) }
             self.tableView.reloadData()
             self.searchPlaces(query: (searchBar?.text)!)
         }
