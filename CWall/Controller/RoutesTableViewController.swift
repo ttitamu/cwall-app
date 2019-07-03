@@ -38,7 +38,7 @@ class RoutesTableViewController: UITableViewController {
             "from": "\(planner!.from!.location!.coordinate.longitude);\(planner!.from!.location!.coordinate.latitude)",
             "to": "\(planner!.to!.location!.coordinate.longitude);\(planner!.to!.location!.coordinate.latitude)",
             "datetime": dateFormatter.string(from: planner!.date!),
-            "datetime_represent": planner!.dateRepresents
+            "datetime_represents": planner!.dateRepresents
         ]
         
         //making a post request
@@ -71,6 +71,7 @@ class RoutesTableViewController: UITableViewController {
             let route = routes[selectedItemPath?.row ?? 0]
             let destinationViewController = segue.destination as! RouteDetailsViewController
             destinationViewController.route = JSON(route)
+            destinationViewController.planner = planner
         }
     }
 }

@@ -10,6 +10,7 @@ import UIKit
 import MapboxGeocoder
 import CoreLocation
 import SwiftValidator
+import SVProgressHUD
 
 struct Planner {
     var from: Placemark?
@@ -23,7 +24,10 @@ class PlanningViewController: UIViewController, UITextFieldDelegate, ValidationD
     var planner: Planner?
     var datePicker = UIDatePicker()
     let validator = Validator()
-    let locationManager = CLLocationManager()
+
+    @IBOutlet private var locationManager: LocationManager!
+    private var locationManagerObserver: NSKeyValueObservation?
+    private var foregroundRestorationObserver: NSObjectProtocol?
     
     @IBOutlet weak var fromTextField: UITextField!
     @IBOutlet weak var toTextField: UITextField!
@@ -32,6 +36,30 @@ class PlanningViewController: UIViewController, UITextFieldDelegate, ValidationD
     @IBOutlet weak var fromError: UILabel!
     @IBOutlet weak var toError: UILabel!
     @IBOutlet weak var dateError: UILabel!
+    @IBOutlet weak var helpText: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        locationManagerObserver = locationManager.observe(\LocationManager.currentLocation) { [weak self] (_, _) in
+            if (self?.locationManager.currentLocation) != nil {
+                // This sample only searches for nearby locations, defined by the device's location. Once the current location is
+                // determined, enable the search functionality.
+                
+                SVProgressHUD.dismiss()
+                self?.fromTextField.isUserInteractionEnabled = true
+                self?.toTextField.isUserInteractionEnabled = true
+                self?.fromTextField.alpha = 1.0
+                self?.toTextField.alpha = 1.0
+            }
+        }
+        
+        let name = UIApplication.willEnterForegroundNotification
+        foregroundRestorationObserver = NotificationCenter.default.addObserver(forName: name, object: nil, queue: nil, using: { [weak self] (_) in
+            // Get a new location when returning from Settings to enable location services.
+            self?.locationManager.requestLocation()
+        })
+    }
 
     @IBAction func fromTouch(_ sender: UITextField) {
         planner?.which = "from"
@@ -97,19 +125,15 @@ class PlanningViewController: UIViewController, UITextFieldDelegate, ValidationD
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        locationManager.requestLocation()
+        
+        if (locationManager.currentLocation == nil) {
+            locationManager.requestLocation()
+            SVProgressHUD.show(withStatus: NSLocalizedString("LOCATION_SERVICES_WAITING", comment: "Acquiring current location"))
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.locationManager.requestWhenInUseAuthorization()
-        
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
-        }
         
         self.fromTextField.delegate = self
         self.toTextField.delegate = self

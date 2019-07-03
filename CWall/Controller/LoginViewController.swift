@@ -133,23 +133,20 @@ class LoginViewController: UIViewController, ValidationDelegate, UITextFieldDele
     @IBAction func forgotPasswordButton(_ sender: UIButton) {
         performSegue(withIdentifier: "forgotPasswordSegue", sender: sender)
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         self.defaultValues.removeObject(forKey: "fromLocation")
         self.defaultValues.removeObject(forKey: "toLocation")
         let userValidDate = UserDefaults.standard.object(forKey: "userValidDate") as? Date ?? Date()
         let date = Date()
-
+        
         // if logged in
         if date < userValidDate {
             //switching the screen
             self.performSegue(withIdentifier: "mainTabBarSegue", sender: nil)
         }
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
         
         self.addDoneButtonOnKeyboard()
         passwordTextField.delegate = self
@@ -183,5 +180,18 @@ class LoginViewController: UIViewController, ValidationDelegate, UITextFieldDele
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "register") {
+            let destinationViewController = segue.destination as! RegisterTableViewController
+            destinationViewController.emailText = emailTextField.text!
+            destinationViewController.passwordText = passwordTextField.text!
+        }
+        
+        if (segue.identifier == "forgotPasswordSegue") {
+            let destinationViewController = segue.destination as! ForgotPasswordController
+            destinationViewController.emailText = emailTextField.text!
+        }
     }
 }

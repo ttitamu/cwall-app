@@ -15,6 +15,8 @@ import SwiftValidator
 class RegisterTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, ValidationDelegate, UITextFieldDelegate {
     let URL_USER_CREATE = "http://13.65.39.139/api/users"
     let validator = Validator()
+    var emailText = ""
+    var passwordText = ""
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
@@ -105,6 +107,7 @@ class RegisterTableViewController: UITableViewController, UIPickerViewDelegate, 
                         SVProgressHUD.showSuccess(withStatus: "User created. Please login.")
                     })
                 } else {
+                    print(response)
                     SVProgressHUD.setForegroundColor(UIColor(red:0.65, green:0.20, blue:0.20, alpha:1.0))
                     SVProgressHUD.showInfo(withStatus: "Errors are below the form")
                     
@@ -127,6 +130,8 @@ class RegisterTableViewController: UITableViewController, UIPickerViewDelegate, 
         lastNameTextField.delegate = self
         passwordTextField.delegate = self
         emailTextField.delegate = self
+        emailTextField.text = emailText
+        passwordTextField.text = passwordText
         
         self.betweenStopLimitPicker.delegate = self
         self.betweenStopLimitPicker.dataSource = self

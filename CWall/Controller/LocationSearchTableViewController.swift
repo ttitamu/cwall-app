@@ -13,7 +13,7 @@ import CoreLocation
 class LocationSearchTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     var planner: Planner?
     let geocoder = Geocoder.shared
-    var locationManager: CLLocationManager!
+    var locationManager: LocationManager!
     
     @IBOutlet var tableView: UITableView!
     
@@ -36,7 +36,7 @@ class LocationSearchTableViewController: UIViewController, UITableViewDelegate, 
         
         self.navigationItem.titleView = searchBar
         
-        let options = ReverseGeocodeOptions(location: locationManager.location!)
+        let options = ReverseGeocodeOptions(location: locationManager!.currentLocation!)
         
         geocoder.geocode(options) { (placemarks, attribution, error) in
             guard let placemark = placemarks?.first else {
@@ -89,7 +89,7 @@ class LocationSearchTableViewController: UIViewController, UITableViewDelegate, 
     }
     
     @objc func searchPlaces(query: String) {
-        guard let locValue: CLLocationCoordinate2D = locationManager.location?.coordinate else { return }
+        guard let locValue: CLLocationCoordinate2D = locationManager?.currentLocation?.coordinate else { return }
         let options = ForwardGeocodeOptions(query: query)
         
         // To refine the search, you can set various properties on the options object.

@@ -14,9 +14,11 @@ import SwiftValidator
 
 class ForgotPasswordController: UIViewController,  ValidationDelegate, UITextFieldDelegate {
     let validator = Validator()
-    let URL_PASSWORD_RESET = "http://13.65.39.139/request-password-reset"
+    let URL_PASSWORD_RESET = "http://13.65.39.139/api/request-password-reset"
+    var emailText = ""
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var emailError: UILabel!
+    @IBOutlet weak var topConstraint: NSLayoutConstraint!
     
     func addDoneButtonOnKeyboard() {
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
@@ -35,7 +37,7 @@ class ForgotPasswordController: UIViewController,  ValidationDelegate, UITextFie
     }
     
     @objc func doneButtonAction() {
-        self.emailTextField.resignFirstResponder()
+        self.view.endEditing(true)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {   //delegate method
@@ -66,6 +68,9 @@ class ForgotPasswordController: UIViewController,  ValidationDelegate, UITextFie
                     SVProgressHUD.setForegroundColor(UIColor(red:0.65, green:0.20, blue:0.20, alpha:1.0))
                     SVProgressHUD.showInfo(withStatus: "Email not found")
                 }
+            } else {
+                print(response)
+                SVProgressHUD.showInfo(withStatus: "Error resetting password")
             }
         }
     }
@@ -81,8 +86,12 @@ class ForgotPasswordController: UIViewController,  ValidationDelegate, UITextFie
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(ForgotPasswordController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ForgotPasswordController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         self.addDoneButtonOnKeyboard()
         emailTextField.delegate = self
+        emailTextField.text = emailText
         
         validator.registerField(emailTextField, errorLabel: emailError, rules: [RequiredRule(), EmailRule()])
         validator.styleTransformers(success: {
@@ -103,6 +112,38 @@ class ForgotPasswordController: UIViewController,  ValidationDelegate, UITextFie
             if let errorLabel = validationError.errorLabel {
                 errorLabel.text = validationError.errorMessage // works if you added labels
                 errorLabel.isHidden = false
+            }
+        })
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(notification:NSNotification) {
+        adjustingHeight(show: true, notification: notification)
+    }
+    
+    @objc func keyboardWillHide(notification:NSNotification) {
+        adjustingHeight(show: false, notification: notification)
+    }
+    
+    func adjustingHeight(show:Bool, notification:NSNotification) {
+        // 1
+        var userInfo = notification.userInfo!
+        // 2
+        let keyboardFrame:CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        // 3
+        let animationDurarion = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as! TimeInterval
+        // 4
+        let changeInHeight = (keyboardFrame.height + 10) * (show ? 1 : -1)
+        //5
+        UIView.animate(withDuration: animationDurarion, animations: { () -> Void in
+            if (show) {
+                self.topConstraint.constant = self.topConstraint.constant - changeInHeight
+            } else {
+                self.topConstraint.constant = 20
             }
         })
     }

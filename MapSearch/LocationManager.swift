@@ -32,6 +32,7 @@ class LocationManager: NSObject {
         }
         
         locationManager.requestWhenInUseAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager.requestLocation()
     }
     

@@ -7,11 +7,18 @@
 //
 
 import UIKit
+import MapboxCoreNavigation
+import MapboxNavigation
+import MapboxDirections
 import Alamofire
 import SwiftyJSON
 
-class RouteDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class RouteDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NavigationViewControllerDelegate {
     var route: JSON?
+    var planner: Planner?
+    var routeOptions: NavigationRouteOptions?
+    var navigationViewController: NavigationViewController?
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeightConstraint: NSLayoutConstraint!
     
@@ -19,6 +26,11 @@ class RouteDetailsViewController: UIViewController, UITableViewDelegate, UITable
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        
+        self.routeOptions = NavigationRouteOptions(coordinates: [
+            planner!.from!.location!.coordinate,
+            planner!.to!.location!.coordinate
+        ], profileIdentifier: .walking)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,9 +86,35 @@ class RouteDetailsViewController: UIViewController, UITableViewDelegate, UITable
         return cell
     }
     
-    
-    
     @IBAction func closeDetails(_ sender: Any) {
         self.dismiss(animated: true, completion:nil)
+    }
+    
+    @IBAction func navigateRoute(_ sender: Any) {
+        var routeCoordinates = Array<CLLocationCoordinate2D>()
+        for (_, section) in (route?["sections"])! {
+            let leg = JSON(section)
+            
+            for (_, coordinate) in leg["geojson"]["coordinates"] {
+                let latlong = JSON(coordinate)
+                let long = latlong[0].double
+                let lat = latlong[1].double
+                routeCoordinates.append(CLLocationCoordinate2D(latitude: CLLocationDegrees(lat!), longitude: CLLocationDegrees(long!)))
+            }
+        }
+
+        let matchOptions = NavigationMatchOptions(coordinates: routeCoordinates)
+
+        Directions.shared.calculateRoutes(matching: matchOptions) { (waypoints, routes, error) in
+            guard let route = routes?.first, error == nil else { return }
+
+            // Set the route
+            let navigationService = MapboxNavigationService(route: route, simulating: .always)
+            let navigationOptions = NavigationOptions(navigationService: navigationService)
+            self.navigationViewController = NavigationViewController(for: route, options: navigationOptions)
+            self.navigationViewController?.delegate = self
+
+            self.present(self.navigationViewController!, animated: true, completion: nil)
+        }
     }
 }

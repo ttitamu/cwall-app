@@ -35,32 +35,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NnM-LL-AJY">
-                                <rect key="frame" x="16" y="365" width="343" height="30"/>
+                                <rect key="frame" x="16" y="321" width="343" height="30"/>
                                 <accessibility key="accessibilityConfiguration" hint="Enter your password text field" label="Password Field"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <textInputTraits key="textInputTraits" spellCheckingType="no" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mND-Lx-H52">
-                                <rect key="frame" x="16" y="330" width="343" height="30"/>
+                                <rect key="frame" x="16" y="286" width="343" height="30"/>
                                 <accessibility key="accessibilityConfiguration" hint="Enter your email address text field" label="Email Address Field"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" textContentType="email"/>
                             </textField>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vv9-PG-21d">
-                                <rect key="frame" x="16" y="360" width="343" height="0.0"/>
+                                <rect key="frame" x="16" y="316" width="343" height="0.0"/>
                                 <accessibility key="accessibilityConfiguration" identifier="emailError"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E8o-xb-zyw">
-                                <rect key="frame" x="16" y="395" width="343" height="0.0"/>
+                                <rect key="frame" x="16" y="351" width="343" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dz3-NK-Pea">
-                                <rect key="frame" x="16" y="403" width="343" height="33"/>
+                                <rect key="frame" x="16" y="359" width="343" height="33"/>
                                 <color key="backgroundColor" red="0.0" green="0.38823529411764707" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <accessibility key="accessibilityConfiguration" hint="Press login button after entering email and password" label="Login Button"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
@@ -73,7 +73,7 @@
                                 </connections>
                             </button>
                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gUZ-EH-la3" customClass="DesignableButton" customModule="CWall" customModuleProvider="target">
-                                <rect key="frame" x="16" y="444" width="343" height="30"/>
+                                <rect key="frame" x="16" y="400" width="343" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <accessibility key="accessibilityConfiguration" hint="Register for user account button" label="Register User Account Button"/>
                                 <constraints>
@@ -93,11 +93,11 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="BfH-1I-TjJ" kind="presentation" id="26e-pw-7NM"/>
+                                    <segue destination="BfH-1I-TjJ" kind="presentation" identifier="register" id="26e-pw-7NM"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="24P-YG-XaQ">
-                                <rect key="frame" x="16" y="482" width="343" height="30"/>
+                                <rect key="frame" x="16" y="438" width="343" height="30"/>
                                 <accessibility key="accessibilityConfiguration" hint="Select button to show forgot password form" label="Forgot password button"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="jWr-vC-msq"/>
@@ -111,7 +111,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CWall-Logo" translatesAutoresizingMaskIntoConstraints="NO" id="ULK-ki-0rr">
-                                <rect key="frame" x="16" y="72" width="343" height="250"/>
+                                <rect key="frame" x="16" y="28" width="343" height="250"/>
                                 <accessibility key="accessibilityConfiguration" hint="Logo for the CWall Application" identifier="CWall-Logo" label="CWall Logo">
                                     <bool key="isElement" value="YES"/>
                                 </accessibility>
@@ -249,11 +249,12 @@
                     <connections>
                         <outlet property="emailError" destination="vWg-yG-6fv" id="Fhz-Ey-arr"/>
                         <outlet property="emailTextField" destination="ZvH-9S-dsH" id="mjm-P3-RzW"/>
+                        <outlet property="topConstraint" destination="ELn-xO-Zzu" id="sGl-kN-VAx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VTO-Wo-Hgb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-338" y="-1393"/>
+            <point key="canvasLocation" x="-338.39999999999998" y="-1393.8530734632684"/>
         </scene>
         <!--Trip Planner-->
         <scene sceneID="MSk-tp-nUr">
@@ -263,8 +264,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" restorationIdentifier="from" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="From" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Sbm-Jz-QhG">
-                                <rect key="frame" x="16" y="87" width="316" height="30"/>
+                            <textField opaque="NO" userInteractionEnabled="NO" alpha="0.55000000000000004" contentMode="scaleToFill" restorationIdentifier="from" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="From" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Sbm-Jz-QhG">
+                                <rect key="frame" x="16" y="43" width="316" height="30"/>
                                 <accessibility key="accessibilityConfiguration" hint="Select this field to search for a starting location" identifier="from" label="From Location">
                                     <accessibilityTraits key="traits" searchField="YES"/>
                                 </accessibility>
@@ -275,8 +276,8 @@
                                     <action selector="fromTouch:" destination="W3G-rM-geJ" eventType="touchDown" id="ZP0-e9-ibi"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" restorationIdentifier="to" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="To" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="vla-Xp-dKt">
-                                <rect key="frame" x="16" y="122" width="316" height="30"/>
+                            <textField opaque="NO" userInteractionEnabled="NO" alpha="0.55000000000000004" contentMode="scaleToFill" restorationIdentifier="to" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="To" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="vla-Xp-dKt">
+                                <rect key="frame" x="16" y="78" width="316" height="30"/>
                                 <accessibility key="accessibilityConfiguration" hint="Select this field to search for an ending location" identifier="to" label="To Location">
                                     <accessibilityTraits key="traits" searchField="YES"/>
                                 </accessibility>
@@ -288,7 +289,7 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tlT-Hg-8Ze">
-                                <rect key="frame" x="332" y="87" width="27" height="64"/>
+                                <rect key="frame" x="332" y="43" width="27" height="64"/>
                                 <accessibility key="accessibilityConfiguration" hint="Click to swap from and to" label="Swap From and To"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="27" id="NRo-Co-eTp"/>
@@ -303,7 +304,7 @@
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Had-EJ-PIt">
-                                <rect key="frame" x="99" y="167" width="177" height="29"/>
+                                <rect key="frame" x="99" y="123" width="177" height="29"/>
                                 <segments>
                                     <segment title="Depart after"/>
                                     <segment title="Arrive by"/>
@@ -313,7 +314,7 @@
                                 </connections>
                             </segmentedControl>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Date" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="7x3-cz-j4T">
-                                <rect key="frame" x="16" y="205" width="343" height="30"/>
+                                <rect key="frame" x="16" y="161" width="343" height="30"/>
                                 <accessibility key="accessibilityConfiguration" hint="Select this field to enter date" label="Date of Depart/Arrive">
                                     <accessibilityTraits key="traits" keyboardKey="YES" adjustable="YES"/>
                                 </accessibility>
@@ -325,7 +326,7 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kHT-lJ-veP">
-                                <rect key="frame" x="16" y="245" width="343" height="30"/>
+                                <rect key="frame" x="16" y="201" width="343" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.38823529410000002" blue="0.65098039220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <accessibility key="accessibilityConfiguration" hint="Click to search for route options" label="Find routes"/>
                                 <state key="normal" title="Find Routes">
@@ -336,21 +337,21 @@
                                 </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rnp-QE-TOh">
-                                <rect key="frame" x="16" y="117" width="0.0" height="0.0"/>
+                                <rect key="frame" x="16" y="73" width="0.0" height="0.0"/>
                                 <accessibility key="accessibilityConfiguration" identifier="emailError"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lrg-Ec-JGf">
-                                <rect key="frame" x="16" y="152" width="0.0" height="0.0"/>
+                                <rect key="frame" x="16" y="108" width="0.0" height="0.0"/>
                                 <accessibility key="accessibilityConfiguration" identifier="emailError"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xry-11-5La">
-                                <rect key="frame" x="16" y="235" width="0.0" height="0.0"/>
+                                <rect key="frame" x="16" y="191" width="0.0" height="0.0"/>
                                 <accessibility key="accessibilityConfiguration" identifier="emailError"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -395,6 +396,7 @@
                         <outlet property="dateRepresents" destination="Had-EJ-PIt" id="m05-6u-enD"/>
                         <outlet property="fromError" destination="Rnp-QE-TOh" id="fAF-gv-uA2"/>
                         <outlet property="fromTextField" destination="Sbm-Jz-QhG" id="Xa5-RZ-trK"/>
+                        <outlet property="locationManager" destination="fu8-H0-jMT" id="DnM-He-gag"/>
                         <outlet property="toError" destination="Lrg-Ec-JGf" id="tQi-BM-zlB"/>
                         <outlet property="toTextField" destination="vla-Xp-dKt" id="o7O-pn-iXL"/>
                         <segue destination="ojW-vj-ZsY" kind="show" identifier="findRoutes" id="cl0-8t-JJX"/>
@@ -402,6 +404,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OXX-S1-0Hv" sceneMemberID="firstResponder"/>
+                <customObject id="fu8-H0-jMT" customClass="LocationManager" customModule="CWall" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="-1114.4000000000001" y="716.49175412293857"/>
         </scene>
@@ -414,7 +417,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Coming Soon" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="X6Q-aE-UiQ">
-                                <rect key="frame" x="83" y="432" width="209" height="43"/>
+                                <rect key="frame" x="83" y="388" width="209" height="43"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="jCb-4L-w7r"/>
@@ -424,7 +427,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CWall-Logo" translatesAutoresizingMaskIntoConstraints="NO" id="bSc-kg-T2g">
-                                <rect key="frame" x="60.5" y="148" width="254" height="246"/>
+                                <rect key="frame" x="60.5" y="104" width="254" height="246"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="254" id="OrK-Me-JBx"/>
                                     <constraint firstAttribute="height" constant="246" id="jtv-3K-Om4"/>
@@ -1319,7 +1322,6 @@
         <!--Location Search Table View Controller-->
         <scene sceneID="KGE-0J-C3W">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="oWo-4T-MMb" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="kPb-Y3-7Hh" customClass="LocationSearchTableViewController" customModule="CWall" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qE2-ym-sHx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -1373,6 +1375,7 @@
                         <outlet property="tableView" destination="rmA-LG-48g" id="eRn-Zh-RDS"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oWo-4T-MMb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1898" y="716"/>
         </scene>
@@ -1472,12 +1475,25 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2J1-ec-sF1">
+                                <rect key="frame" x="16" y="617" width="343" height="30"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Navigate Route (Disabled)">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="navigateRoute:" destination="Jym-T0-5WT" eventType="touchUpInside" id="9RC-7V-A0O"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ARN-8Y-glj" firstAttribute="top" secondItem="Qoc-BM-5pD" secondAttribute="bottom" id="0Hp-rU-Ifz"/>
                             <constraint firstItem="Qoc-BM-5pD" firstAttribute="leading" secondItem="tDW-1p-c9p" secondAttribute="leading" id="7Jx-Wi-TQB"/>
                             <constraint firstItem="Qoc-BM-5pD" firstAttribute="trailing" secondItem="tDW-1p-c9p" secondAttribute="trailing" id="Jb5-j2-l8Z"/>
+                            <constraint firstItem="2J1-ec-sF1" firstAttribute="leading" secondItem="tDW-1p-c9p" secondAttribute="leading" constant="16" id="KX2-44-hvb"/>
+                            <constraint firstItem="tDW-1p-c9p" firstAttribute="trailing" secondItem="2J1-ec-sF1" secondAttribute="trailing" constant="16" id="UgK-bS-BWh"/>
+                            <constraint firstItem="tDW-1p-c9p" firstAttribute="bottom" secondItem="2J1-ec-sF1" secondAttribute="bottom" constant="20" id="dLD-et-17I"/>
                             <constraint firstItem="ARN-8Y-glj" firstAttribute="trailing" secondItem="tDW-1p-c9p" secondAttribute="trailing" id="oR3-Ml-0rM"/>
                             <constraint firstItem="ARN-8Y-glj" firstAttribute="leading" secondItem="tDW-1p-c9p" secondAttribute="leading" id="rWx-hm-CCG"/>
                             <constraint firstItem="Qoc-BM-5pD" firstAttribute="top" secondItem="tDW-1p-c9p" secondAttribute="top" id="v7Q-Gg-tV5"/>
@@ -1500,7 +1516,7 @@
         <image name="map" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="jkh-OJ-R1C"/>
-        <segue reference="kgp-OT-m7b"/>
+        <segue reference="jPQ-f5-RiM"/>
+        <segue reference="3Ro-lC-yNl"/>
     </inferredMetricsTieBreakers>
 </document>
